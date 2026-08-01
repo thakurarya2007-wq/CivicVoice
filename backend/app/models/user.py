@@ -4,6 +4,8 @@ from sqlalchemy import Boolean, Column, DateTime, Integer, String
 
 from app.database.database import Base
 
+from sqlalchemy.orm import relationship
+
 
 class User(Base):
     __tablename__ = "users"
@@ -51,3 +53,8 @@ class User(Base):
         default=datetime.utcnow,
         onupdate=datetime.utcnow
     )
+    complaints = relationship(
+    "Complaint",
+    back_populates="user",
+    cascade="all, delete-orphan",
+)
